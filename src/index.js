@@ -4,7 +4,6 @@ const fs = require('fs').promises;
 const path = require('path');
 const readline = require('readline');
 
-// Default configuration for standalone executable
 const defaultConfig = {
     baseUrl: 'https://api.data-crypt.com/api/v1.3',
     tokenUrl: 'https://identity.data-crypt.com/connect/token',
@@ -12,14 +11,11 @@ const defaultConfig = {
     scope: 'api.Master'
 };
 
-// Try to load .env if it exists (for development)
 try {
     require('dotenv').config();
 } catch (e) {
-    // dotenv not available, use defaults
 }
 
-// Use environment variables or defaults
 const config = {
     baseUrl: process.env.baseUrl || defaultConfig.baseUrl,
     tokenUrl: process.env.tokenUrl || defaultConfig.tokenUrl,
@@ -44,7 +40,6 @@ async function askQuestion(question) {
     });
 }
 
-// Graceful shutdown handler
 process.on('SIGINT', () => {
     console.log('\nProcess interrupted by user');
     rl.close();
